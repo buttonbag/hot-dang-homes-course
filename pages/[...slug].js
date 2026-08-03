@@ -16,12 +16,18 @@ export const getStaticPaths = async () => {
           uri
         }
       }
+      properties {
+        nodes {
+          title
+          uri
+        }
+      }
     }    
     `
   });
 
   return {
-    paths: data.pages.nodes.filter(page => page.uri !="/").map(page => ({
+    paths: [...data.pages.nodes, ...data.properties.nodes].filter(page => page.uri !="/").map(page => ({
       params: {
         slug: page.uri.substring(1, page.uri.length - 1).split("/"),
       }
