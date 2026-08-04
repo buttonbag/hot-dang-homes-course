@@ -4,6 +4,7 @@ import { Columns } from "components/Columns";
 import { Cover } from "components/Cover";
 import { Heading } from "components/Heading";
 import { Paragraph } from "components/Paragraph";
+import { PropertySearch } from "components/PropertySearch";
 import Image from "next/image";
 import { theme } from "theme";
 
@@ -26,13 +27,17 @@ export const BlockRenderer = ({blocks}) => {
         textColor={theme[block.attributes.textColor] || block.attributes.style?.color?.text}
         />
       }
+      case 'core/post-title':
       case 'core/heading': {
         return <Heading 
         key={block.id} 
         level={block.attributes.level}
-        textAlign={block.attributes.style?.typography.textAlign}
+        textAlign={block.attributes.style?.typography?.textAlign}
         content={block.attributes.content}
         />
+      }
+      case 'acf/propertysearch': {
+        return <PropertySearch key={block.id} />
       }
       case 'core/cover': {
         return (
