@@ -1,5 +1,6 @@
 import { Input } from "components/Input"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import queryString from 'query-string';
 
 export const Filters = ({onSearch}) => {
   const [petFriendly, setPetFriendly] = useState(false);
@@ -16,9 +17,23 @@ export const Filters = ({onSearch}) => {
     });
   }
 
+  useEffect(()=>{
+    const {
+      petFriendly: petFriendlyInit,
+      parking: parkingInit,
+      minPrice: minPriceInit,
+      maxPrice: maxPriceInit,
+    } = queryString.parse(window.location.search);
+
+    setPetFriendly(petFriendlyInit === "true");
+    setParking(parkingInit === "true");
+    setMinPrice(minPriceInit || "");
+    setMaxPrice(maxPriceInit || "");
+  }, [])
+
   return (
     <div className="max-w-5xl mx-auto my-5 flex gap-5 border-solid border-slate-400 border-2 p-5 rounded-md">
-      <form className="flex-1">
+      <div className="flex-1">
 
         <div>
           <label>
@@ -33,19 +48,19 @@ export const Filters = ({onSearch}) => {
           </label>
         </div>
 
-      </form>
-      <form className="flex-1">
+      </div>
+      <div className="flex-1">
 
         <span>Min price</span>
         <Input type="number" value={minPrice} onChange={(e)=>{setMinPrice(e.target.value)}} />
 
-      </form>
-      <form className="flex-1">
+      </div>
+      <div className="flex-1">
 
         <span>Max price</span>
         <Input type="number" value={maxPrice} onChange={(e)=>{setMaxPrice(e.target.value)}} />
 
-      </form>
+      </div>
 
       <button className="btn" onClick={handleSearch} >Search</button>
     </div>

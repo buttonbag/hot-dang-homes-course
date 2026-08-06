@@ -43,7 +43,18 @@ export const PropertySearch = () => {
   };
 
   const handlePageClick = async (pageNumber) => {
-    await router.push(`${router.query.slug.join("/")}?page=${pageNumber}`, null, {shallow: true});
+    const {
+      petFriendly,
+      parking,
+      minPrice,
+      maxPrice,
+    } = queryString.parse(window.location.search);
+
+    await router.push(`${router.query.slug.join("/")}?page=${pageNumber}&petFriendly=${
+      petFriendly === "true"
+    }&parking=${
+      parking === "true"
+    }&minPrice=${minPrice}&maxPrice=${maxPrice}`, null, {shallow: true});
     search();
   }
   
@@ -54,7 +65,15 @@ export const PropertySearch = () => {
   const handleSearch = async ({petFriendly, parking, minPrice, maxPrice,}) => {
     // update browser url
     // search
-    await router.push(`${router.query.slug.join("/")}?page=1&petFriendly=${!!petFriendly}&parking=${!!parking}&minPrice=${minPrice}&maxPrice=${maxPrice},`, null, {shallow: true});
+    await router.push(`${router.query.slug.join("/")}?page=1&petFriendly=${
+      !!petFriendly
+    }&parking=${
+      !!parking
+    }&minPrice=${
+      minPrice
+    }&maxPrice=${
+      maxPrice
+    },`, null, {shallow: true});
     console.log("HANDLE SEARCH: ", petFriendly, parking, minPrice, maxPrice,);
     search();
   };
