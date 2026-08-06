@@ -7,8 +7,36 @@ export const Filters = ({onSearch}) => {
   const [parking, setParking] = useState(false);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [error, setError] = useState("");
+
+  const validatePrices = (min, max) => {
+    if (min === "" || max === "") {
+      return "";
+    }
+
+    const minValue = parseInt(min, 10);
+    const maxValue = parseInt(max, 10);
+
+    if (Number.isNaN(minValue) || Number.isNaN(maxValue)) {
+      return "Prices must be valid numbers.";
+    }
+
+    if (minValue >= maxValue) {
+      return "Min price must be less than max price.";
+    }
+
+    return "";
+  };
 
   const handleSearch = () => {
+    const validationError = validatePrices(minPrice, maxPrice);
+
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setError("");
     onSearch({
       petFriendly,
       parking,
@@ -60,7 +88,12 @@ export const Filters = ({onSearch}) => {
         <span>Max price</span>
         <Input type="number" value={maxPrice} onChange={(e)=>{setMaxPrice(e.target.value)}} />
 
+        {error ? (
+          <p className="text-red-600">{error}</p>
+        ) : null}
+
       </div>
+
 
       <button className="btn" onClick={handleSearch} >Search</button>
     </div>
