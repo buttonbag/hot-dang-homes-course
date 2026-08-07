@@ -8,12 +8,25 @@ import { PropertySearch } from "components/PropertySearch";
 import { FormspreeForm } from "components/FormspreeForm";
 import Image from "next/image";
 import { theme } from "theme";
+import { PropertyFeatures } from "components/PropertyFeatures";
 
 export const BlockRenderer = ({blocks}) => {
   return blocks.map((block) => {
     switch (block.name) {
+      case 'acf/propertyfeatures': {
+        return <PropertyFeatures 
+        key={block.id} 
+        price={block.attributes.price}
+        bedrooms={block.attributes.bedrooms}
+        bathrooms={block.attributes.bathrooms}
+        parking={block.attributes.parking}
+        petFriendly={block.attributes.pet_friendly}
+        />
+      }
       case 'acf/formspreeform': {
-        return <FormspreeForm key={block.id} formId={block.attributes.data.form_id} />
+        return <FormspreeForm 
+        key={block.id} 
+        formId={block.attributes.data.form_id} />
       }
       case 'acf/ctabutton': {
         return <CallToActionButton 
