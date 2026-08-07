@@ -5,12 +5,16 @@ import { Cover } from "components/Cover";
 import { Heading } from "components/Heading";
 import { Paragraph } from "components/Paragraph";
 import { PropertySearch } from "components/PropertySearch";
+import { FormspreeForm } from "components/FormspreeForm";
 import Image from "next/image";
 import { theme } from "theme";
 
 export const BlockRenderer = ({blocks}) => {
   return blocks.map((block) => {
     switch (block.name) {
+      case 'acf/formspreeform': {
+        return <FormspreeForm key={block.id} formId={block.attributes.data.form_id} />
+      }
       case 'acf/ctabutton': {
         return <CallToActionButton 
         key={block.id}

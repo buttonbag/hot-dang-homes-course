@@ -10,28 +10,28 @@ export const Filters = ({onSearch}) => {
   const [error, setError] = useState("");
 
   const validatePrices = (min, max) => {
-    if (min === "" || max === "") {
+    if (min === "" || max === "") { //check if min max has value
       return "";
     }
 
-    const minValue = parseInt(min, 10);
+    const minValue = parseInt(min, 10); //evaluate if values can be converted to integers or NaN
     const maxValue = parseInt(max, 10);
 
-    if (Number.isNaN(minValue) || Number.isNaN(maxValue)) {
+    if (Number.isNaN(minValue) || Number.isNaN(maxValue)) { //error if NaN
       return "Prices must be valid numbers.";
     }
 
-    if (minValue >= maxValue) {
+    if (minValue >= maxValue) { //check if min is more than max
       return "Min price must be less than max price.";
     }
 
-    return "";
+    return ""; //return if tests pass
   };
 
   const handleSearch = () => {
     const validationError = validatePrices(minPrice, maxPrice);
 
-    if (validationError) {
+    if (validationError) { //set error if true
       setError(validationError);
       return;
     }
@@ -93,7 +93,6 @@ export const Filters = ({onSearch}) => {
         ) : null}
 
       </div>
-
 
       <button className="btn" onClick={handleSearch} >Search</button>
     </div>
