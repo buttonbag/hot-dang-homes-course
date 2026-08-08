@@ -10,6 +10,7 @@ import Image from "next/image";
 import { theme } from "theme";
 import { PropertyFeatures } from "components/PropertyFeatures";
 import { Gallery } from "components/Gallery";
+import { TickItem } from "components/TickItem";
 
 export const BlockRenderer = ({blocks}) => {
   return blocks.map((block) => {
@@ -21,6 +22,11 @@ export const BlockRenderer = ({blocks}) => {
         cropImages={block.attributes.imageCrop}
         items={block.innerBlocks}
         />
+      }
+      case 'acf/tickitem': {
+        return <TickItem key={block.id}>
+          <BlockRenderer blocks={block.innerBlocks} />
+        </TickItem>
       }
       case 'acf/propertyfeatures': {
         return <PropertyFeatures 
@@ -85,6 +91,8 @@ export const BlockRenderer = ({blocks}) => {
         return <Column 
         key={block.id}
         width={block.attributes?.width || ""}
+        textColor={theme[block.attributes.textColor] || block.attributes.style?.color?.text}
+        backgroundColor={theme[block.attributes.backgroundColor] || block.attributes.style?.color?.background}
         >
           <BlockRenderer blocks={block.innerBlocks} />
         </Column>

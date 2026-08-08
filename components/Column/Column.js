@@ -1,4 +1,6 @@
-export const Column = ({children, width}) => {
+export const Column = ({children, width, textColor, backgroundColor}) => {
   const widthStyle = width ? {minWidth: width, flexGrow: 1} : {flexGrow: 1, flexBasis: 0};
-  return <div style={widthStyle} className="px-2 py-5">{children}</div>
+  const textColorStyle = textColor ? {color: textColor} : {};
+  const bgColorStyle = backgroundColor ? {backgroundColor} : {}
+  return <div style={{...widthStyle, ...textColorStyle, ...bgColorStyle}} className="px-2 py-5">{children}</div>
 }
