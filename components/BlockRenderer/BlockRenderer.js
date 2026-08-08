@@ -9,10 +9,19 @@ import { FormspreeForm } from "components/FormspreeForm";
 import Image from "next/image";
 import { theme } from "theme";
 import { PropertyFeatures } from "components/PropertyFeatures";
+import { Gallery } from "components/Gallery";
 
 export const BlockRenderer = ({blocks}) => {
   return blocks.map((block) => {
     switch (block.name) {
+      case 'core/gallery': {
+        return <Gallery 
+        key={block.id} 
+        columns={block.attributes.columns || 3}
+        cropImages={block.attributes.imageCrop}
+        items={block.innerBlocks}
+        />
+      }
       case 'acf/propertyfeatures': {
         return <PropertyFeatures 
         key={block.id} 
