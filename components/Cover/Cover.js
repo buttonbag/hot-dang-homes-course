@@ -5,6 +5,7 @@ export const Cover = ({children, background}) => {
     <Image 
     alt="Cover" 
     fill 
+    priority
     className="object-cover mix-blend-soft-light" 
     src={background}/>
       <div className="max-w-5xl z-10">

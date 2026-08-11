@@ -1,7 +1,8 @@
+"use client"
 import { useEffect, useState } from "react"
 import { Results } from "./Results";
 import { Pagination } from "./Pagination";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import queryString from "query-string";
 import { Filters } from "./Filters";
 
@@ -9,7 +10,8 @@ export const PropertySearch = () => {
   const [properties, setProperties] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const pageSize = 3;
-  const router = useRouter()
+  const router = useRouter();
+  const pathname = usePathname();
 
   const search = async () => {
     
@@ -42,7 +44,7 @@ export const PropertySearch = () => {
     setTotalResults(data.total);
   };
 
-  const handlePageClick = async (pageNumber) => {
+  const handlePageClick = (pageNumber) => {
     const {
       petFriendly,
       parking,
@@ -50,22 +52,22 @@ export const PropertySearch = () => {
       maxPrice,
     } = queryString.parse(window.location.search);
 
-    await router.push(`${router.query.slug.join("/")}?page=${pageNumber}&petFriendly=${
+   router.push(`${pathname}?page=${pageNumber}&petFriendly=${
       petFriendly === "true"
     }&parking=${
       parking === "true"
-    }&minPrice=${minPrice}&maxPrice=${maxPrice}`, null, {shallow: true});
-    search();
+    }&minPrice=${minPrice}&maxPrice=${maxPrice}`);
+
   }
   
   useEffect(() => {
     search();
   }, []);
   
-  const handleSearch = async ({petFriendly, parking, minPrice, maxPrice,}) => {
+  const handleSearch = ({petFriendly, parking, minPrice, maxPrice,}) => {
     // update browser url
     // search
-    await router.push(`${router.query.slug.join("/")}?page=1&petFriendly=${
+   router.push(`${pathname}?page=1&petFriendly=${
       !!petFriendly
     }&parking=${
       !!parking
@@ -73,9 +75,9 @@ export const PropertySearch = () => {
       minPrice
     }&maxPrice=${
       maxPrice
-    },`, null, {shallow: true});
+    }`);
     console.log("HANDLE SEARCH: ", petFriendly, parking, minPrice, maxPrice,);
-    search();
+
   };
 
   return <div>

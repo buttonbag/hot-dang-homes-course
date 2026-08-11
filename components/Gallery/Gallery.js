@@ -6,9 +6,9 @@ export const Gallery = ({columns, cropImages, items}) => {
       <div key={item.id}>
         <Image 
           src={item.attributes.url}
-          height={item.attributes.height}
-          width={item.attributes.width}
-          alt={item.attributes.alt}
+          height={item.attributes.height || maxHeight}
+          width={item.attributes.width || maxWidth}
+          alt={item.attributes.alt || ""}
         />
       </div>
     ))};
