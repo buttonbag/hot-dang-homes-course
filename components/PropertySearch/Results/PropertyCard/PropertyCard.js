@@ -23,10 +23,10 @@ export const PropertyCard = ({
     <div className="text-lg">${numeral(price).format("0,0")}</div>
     <div className="flex justify-between text-sm mt-3">
       <div>
-        <FontAwesomeIcon icon={faBath} /><span className="pl-2">{bathrooms} Bath</span>
+        <FontAwesomeIcon icon={faBath} aria-hidden="true" /><span className="pl-2">{bathrooms} Bath</span>
       </div>
       <div>
-        <FontAwesomeIcon icon={faBed} /><span className="pl-2">{bedrooms} Beds</span>
+        <FontAwesomeIcon icon={faBed} aria-hidden="true" /><span className="pl-2">{bedrooms} Beds</span>
       </div>
     </div>
     
@@ -35,14 +35,14 @@ export const PropertyCard = ({
         <div>
           {!!parking &&
            <>
-            <FontAwesomeIcon icon={faCar} /><span className="pl-2">{parking} Parking Available</span>
+            <FontAwesomeIcon icon={faCar} aria-hidden="true" /><span className="pl-2">{parking} Parking Available</span>
            </>
           }
         </div>
         <div>
           {!!petFriendly &&
            <>
-            <FontAwesomeIcon icon={faDog} /><span className="pl-2">{petFriendly} Pet Friendly</span>
+            <FontAwesomeIcon icon={faDog} aria-hidden="true" /><span className="pl-2">{petFriendly} Pet Friendly</span>
            </>
           }
         </div>

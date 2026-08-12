@@ -21,21 +21,23 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
         </Link>
       </div>
 
-      <nav className="hidden md:flex flex-1 justify-end items-center gap-2">
-        {(items || []).map(item => (
-          <div key={item.id} className='hover:bg-slate-500 relative group'>
-            <Link href={item.destination} className="p-5 block">{item.label}</Link>
-            {!!item.subMenuItems?.length && (
-              <div className='group-hover:block hidden bg-slate-800 text-right absolute right-0 top-full -mt-3'>
-                {item.subMenuItems.map(subItem => (
+      <nav className="hidden md:flex flex-1 justify-end items-center gap-2" aria-label="Primary navigation">
+        <ul className="flex items-center gap-2">
+          {(items || []).map(item => (
+            <li key={item.id} className='hover:bg-slate-500 relative group'>
+              <Link href={item.destination} className="p-5 block">{item.label}</Link>
+              {!!item.subMenuItems?.length && (
+                <div className='group-hover:block group-focus-within:block hidden bg-slate-800 text-right absolute right-0 top-full -mt-3'>
+                  {item.subMenuItems.map(subItem => (
                     <Link key={subItem.id} href={subItem.destination} className='hover:bg-slate-500 p-5 block whitespace-nowrap' >
                       {subItem.label}
                     </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+                  ))}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
         <div className='ml-3'>
           <ButtonLink 
             destination={callToActionDestination} 
@@ -48,27 +50,31 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
         type="button"
         onClick={handleMenuClick}
         aria-expanded={mobileNavExpanded}
+        aria-controls="mobile-menu"
+        aria-label={mobileNavExpanded ? 'Close menu' : 'Open menu'}
         className="md:hidden py-4 z-20"
       >
         <div>{!mobileNavExpanded ? <FaBars size={30} /> : <FaPlus size={30} className='rotate-45' />}</div>
       </button>
     </div>
 
-    <nav className={`${mobileNavExpanded ? 'max-h-[500px]' : 'max-h-0'} absolute left-0 top-full z-30 bg-slate-800 overflow-hidden flex flex-col md:hidden w-full duration-300 ease-in-out `}>
-      {(items || []).map(item => (
-        <div key={item.id} className='w-full border-b border-slate-600'>
-          <Link href={item.destination} onClick={handleMenuClick} className="p-4 block w-full">{item.label}</Link>
-          {!!item.subMenuItems?.length && (
-            <div>
-              {item.subMenuItems.map(subItem => (
-                <Link key={subItem.id} href={subItem.destination} onClick={handleMenuClick} className='hover:bg-slate-500 p-4 block whitespace-nowrap'>
-                  {subItem.label}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+    <nav id="mobile-menu" aria-hidden={!mobileNavExpanded} className={`${mobileNavExpanded ? 'flex' : 'hidden'} absolute left-0 top-full z-30 bg-slate-800 overflow-hidden flex-col md:hidden w-full duration-300 ease-in-out`}>
+      <ul className="w-full">
+        {(items || []).map(item => (
+          <li key={item.id} className='w-full border-b border-slate-600'>
+            <Link href={item.destination} onClick={handleMenuClick} className="p-4 block w-full">{item.label}</Link>
+            {!!item.subMenuItems?.length && (
+              <div>
+                {item.subMenuItems.map(subItem => (
+                  <Link key={subItem.id} href={subItem.destination} onClick={handleMenuClick} className='hover:bg-slate-500 p-4 block whitespace-nowrap'>
+                    {subItem.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
       <div className='p-4' onClick={handleMenuClick}>
         <ButtonLink 
           destination={callToActionDestination} 
@@ -77,9 +83,14 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
       </div>
     </nav>
   </div>
-  <div id='menu-id-overlay' className={`
+  <div
+    aria-hidden={!mobileNavExpanded}
+    id='menu-id-overlay'
+    className={`
           fixed inset-0 bg-black/80 transition-opacity duration-300 md:hidden z-20
           ${mobileNavExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-        `} onClick={handleMenuClick}/>
+        `}
+    onClick={handleMenuClick}
+  />
   </>
 }
