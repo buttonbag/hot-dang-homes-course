@@ -2,7 +2,7 @@
 import { ButtonLink } from 'components/ButtonLink';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaBars, FaHamburger, FaHouseUser } from 'react-icons/fa';
+import { FaBars, FaHamburger, FaHouseUser, FaPlus } from 'react-icons/fa';
 
 export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) => {
   const [mobileNavExpanded, setMobileNavExpanded] = useState(false);
@@ -12,7 +12,7 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
     setMobileNavExpanded((prev) => !prev);
   }
 
-  return <div className="bg-slate-800 sticky top-0 z-20 px-5 text-white">
+  return <><div className="bg-slate-800 sticky top-0 z-50 px-5 text-white">
     <div className="flex items-center justify-between h-[64px]">
       <div className="flex items-center py-4 pl-5 text-pink-600">
         <FaHouseUser size={30} />
@@ -46,20 +46,20 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
         type="button"
         onClick={handleMenuClick}
         aria-expanded={mobileNavExpanded}
-        className="md:hidden p-2"
+        className="md:hidden py-4 z-20"
       >
-        <FaBars size={30} />
+        <div>{!mobileNavExpanded ? <FaBars size={30} /> : <FaPlus size={30} className='rotate-45' />}</div>
       </button>
     </div>
 
-    <nav className={`${mobileNavExpanded ? 'flex' : 'hidden'} flex-col md:hidden w-full`}>
+    <nav className={`${mobileNavExpanded ? 'max-h-[500px]' : 'max-h-0'} absolute left-0 top-full z-30 bg-slate-800 overflow-hidden flex flex-col md:hidden w-full duration-300 ease-in-out `}>
       {(items || []).map(item => (
         <div key={item.id} className='w-full border-b border-slate-600'>
-          <Link href={item.destination} className="p-4 block w-full">{item.label}</Link>
+          <Link href={item.destination} onClick={handleMenuClick} className="p-4 block w-full">{item.label}</Link>
           {!!item.subMenuItems?.length && (
-            <div className='bg-slate-600'>
+            <div>
               {item.subMenuItems.map(subItem => (
-                <Link key={subItem.id} href={subItem.destination} className='hover:bg-slate-500 p-4 block whitespace-nowrap'>
+                <Link key={subItem.id} href={subItem.destination} onClick={handleMenuClick} className='hover:bg-slate-500 p-4 block whitespace-nowrap'>
                   {subItem.label}
                 </Link>
               ))}
@@ -67,7 +67,7 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
           )}
         </div>
       ))}
-      <div className='p-4'>
+      <div className='p-4' onClick={handleMenuClick}>
         <ButtonLink 
           destination={callToActionDestination} 
           label={callToActionLabel} 
@@ -75,4 +75,9 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
       </div>
     </nav>
   </div>
+  <div id='menu-id-overlay' className={`
+          fixed inset-0 bg-black/80 transition-opacity duration-300 md:hidden z-20
+          ${mobileNavExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+        `} onClick={handleMenuClick}/>
+  </>
 }
