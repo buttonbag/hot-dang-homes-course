@@ -60,30 +60,12 @@ export const Filters = ({onSearch}) => {
   }, [])
 
   return (
-    <div className="max-w-5xl mx-auto my-5 flex gap-5 border-solid border-slate-400 border-2 p-5 rounded-md">
-      <div className="flex-1">
-
-        <div>
-          <label>
-            <input type="checkbox" checked={parking} onChange={()=>{setParking(value => !value)}} />
-            <span className="pl-2">has parking</span>
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" checked={petFriendly} onChange={()=>{setPetFriendly(value => !value)}} />
-            <span className="pl-2">pet friendly</span>
-          </label>
-        </div>
-
-      </div>
-      <div className="flex-1">
+    <div className="max-w-5xl mx-auto my-5 flex flex-col gap-5 border-solid border-slate-400 border-2 p-5 rounded-md">
+      
+      <div>
 
         <span>Min price</span>
         <Input type="number" value={minPrice} onChange={(e)=>{setMinPrice(e.target.value)}} />
-
-      </div>
-      <div className="flex-1">
 
         <span>Max price</span>
         <Input type="number" value={maxPrice} onChange={(e)=>{setMaxPrice(e.target.value)}} />
@@ -94,7 +76,25 @@ export const Filters = ({onSearch}) => {
 
       </div>
 
-      <button className="btn" onClick={handleSearch} >Search</button>
+        <div className="flex gap-5">
+          <div>
+            <div>
+              <label>
+                <input type="checkbox" checked={parking} onChange={()=>{setParking(value => !value)}} />
+                <span className="pl-2">has parking</span>
+              </label>
+            </div>
+            <div>
+              <label>
+                <input type="checkbox" checked={petFriendly} onChange={()=>{setPetFriendly(value => !value)}} />
+                <span className="pl-2">pet friendly</span>
+              </label>
+            </div>
+          </div>
+          
+          <div><button className="btn" onClick={handleSearch} >Search</button></div>
+        </div>
+
     </div>
   )
 }
