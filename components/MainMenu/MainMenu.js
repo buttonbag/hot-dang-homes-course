@@ -14,9 +14,11 @@ export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) 
 
   return <><div className="bg-slate-800 sticky top-0 z-50 px-5 text-white">
     <div className="flex items-center justify-between h-[64px]">
-      <div className="flex items-center py-4 pl-5 text-pink-600">
-        <FaHouseUser size={30} />
-        <span className="sr-only">Hot Dang Homes</span>
+      <div className="flex items-center py-4 pl-5 text-sky-500">
+        <Link href={"/"}>
+          <FaHouseUser size={30} />
+          <span className="sr-only">Hot Dang Homes</span>
+        </Link>
       </div>
 
       <nav className="hidden md:flex flex-1 justify-end items-center gap-2">

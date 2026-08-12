@@ -6,8 +6,6 @@ export const Heading = ({ textAlign, content, level }) => {
     dangerouslySetInnerHTML: { __html: content },
     className: `
       font-heading
-      max-w-5xl 
-      mx-auto 
       my-5 
       ${getFontSizeForHeading(level)} 
       ${getTextAlign(textAlign)}
