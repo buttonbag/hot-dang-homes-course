@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import numeral from "numeral"
 
 export const PropertyFeatures = ({price, bedrooms, bathrooms, parking, petFriendly}) => {
-  return <div className="max-w-lg my-10 bg-white mb-10 text-center">
+  return <div className="max-w-lg my-10 bg-white text-black mb-10 p-5 text-center">
     <div>
 
     <div>
@@ -26,7 +26,7 @@ export const PropertyFeatures = ({price, bedrooms, bathrooms, parking, petFriend
         </>
       }
     </div>
-    <h3>
+    <h3 className="text-4xl">
       ${numeral(price).format("0,0")}
     </h3>
 
