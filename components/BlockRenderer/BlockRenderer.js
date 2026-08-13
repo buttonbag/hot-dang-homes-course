@@ -11,6 +11,7 @@ import { theme } from "theme";
 import { PropertyFeatures } from "components/PropertyFeatures";
 import { Gallery } from "components/Gallery";
 import { TickItem } from "components/TickItem";
+import { Calendar } from "components/Calendar";
 
 export const BlockRenderer = ({blocks}) => {
   return blocks.map((block) => {
@@ -102,6 +103,11 @@ export const BlockRenderer = ({blocks}) => {
       }
       case 'core/group': {
         return <BlockRenderer key={block.id} blocks={block.innerBlocks} />
+      }
+      case 'acf/calendar': {
+        console.log(block);
+        
+        return <Calendar key={block.key} dataUrl={block.attributes.data.data_url} />
       }
       case 'core/image': {
         return <Image 
