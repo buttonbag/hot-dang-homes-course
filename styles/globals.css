@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer components {
+  :root {
+    --h1: clamp(1.75rem, 4vw + 1rem, 3.75rem);
+    --h2: clamp(1.5rem, 3.5vw + 0.75rem, 3rem);
+    --h3: clamp(1.25rem, 3vw + 0.5rem, 2.25rem);
+    --h4: clamp(1.125rem, 2.25vw + 0.25rem, 1.75rem);
+    --h5: clamp(1rem, 1.75vw + 0.1rem, 1.25rem);
+    --h6: clamp(0.875rem, 1.25vw + 0.1rem, 1rem);
+  }
+
+  h1.font-heading { font-size: var(--h1); }
+  h2.font-heading { font-size: var(--h2); }
+  h3.font-heading { font-size: var(--h3); }
+  h4.font-heading { font-size: var(--h4); }
+  h5.font-heading { font-size: var(--h5); }
+  h6.font-heading { font-size: var(--h6); }
+  
   .btn {
     @apply bg-sky-500
     hover:bg-sky-700 
@@ -16,4 +32,5 @@
       font-bold
     text-white
   }
+
 }

@@ -7,7 +7,7 @@ export const Heading = ({ textAlign, content, level }) => {
     className: `
       font-heading
       my-5 
-      ${getFontSizeForHeading(level)} 
+      ${getFontSizeForHeading(level)}
       ${getTextAlign(textAlign)}
     `
   });

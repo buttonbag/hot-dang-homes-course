@@ -6,7 +6,7 @@ import { FaBars, FaHamburger, FaHouseUser, FaPlus } from 'react-icons/fa';
 
 export const MainMenu = ({ items, callToActionLabel, callToActionDestination }) => {
   const [mobileNavExpanded, setMobileNavExpanded] = useState(false);
-  console.log("MENU: ", items);
+  // console.log("MENU: ", items);
 
   const handleMenuClick = () => {
     setMobileNavExpanded((prev) => !prev);
