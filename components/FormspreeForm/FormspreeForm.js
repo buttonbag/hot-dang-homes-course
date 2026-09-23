@@ -72,4 +72,3 @@ export const FormspreeForm = ({formId}) => {
     </form>
   );
 }
-
